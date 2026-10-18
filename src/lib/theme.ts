@@ -14,13 +14,8 @@ export const PALETTES = [
 
 export type PaletteId = (typeof PALETTES)[number]['id']
 
-function read(key: string) {
-  try {
-    return localStorage.getItem(key)
-  } catch {
-    return null
-  }
-}
+// The saved theme and palette are applied before first paint by the inline
+// script in index.html; these setters only handle changes after load.
 
 function write(key: string, value: string) {
   try {
@@ -46,11 +41,4 @@ export function getPalette(): PaletteId {
 export function setPalette(id: PaletteId) {
   document.documentElement.dataset.palette = id
   write('palette', id)
-}
-
-export function initPalette() {
-  const saved = read('palette')
-  if (saved && PALETTES.some((p) => p.id === saved)) {
-    document.documentElement.dataset.palette = saved
-  }
 }

@@ -59,14 +59,18 @@ export default function Projects() {
           },
         )
 
-        // ...and sinks back into the stack when the next card covers it
+        // ...and sinks back into the stack when the next card covers it.
+        // This animates the sticky wrap, not the card: on tall viewports the
+        // card can still be mid-arrival, and two scrub tweens on the same
+        // element would fight over rotationX/y.
         const next = wraps[i + 1]
         if (!next) return
-        gsap.to(card, {
+        gsap.to(wrap, {
           scale: 0.9,
           rotationX: 10,
           y: -30,
           transformOrigin: '50% 0%',
+          transformPerspective: 1600,
           ease: 'none',
           scrollTrigger: {
             trigger: next,

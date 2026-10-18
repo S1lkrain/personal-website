@@ -7,17 +7,10 @@ type Props = {
   label: string
   title: string
   id?: string
-  tone?: 'default' | 'band'
 }
 
 /** Chapter-style header: a huge outlined number that drifts, and a title that rises word by word. */
-export default function SectionHeader({
-  number,
-  label,
-  title,
-  id,
-  tone = 'default',
-}: Props) {
+export default function SectionHeader({ number, label, title, id }: Props) {
   const root = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
@@ -70,7 +63,7 @@ export default function SectionHeader({
   }, [])
 
   return (
-    <div className={`section-header tone-${tone}`} ref={root}>
+    <div className="section-header" ref={root}>
       <span className="sh-number" aria-hidden="true">
         {number}
       </span>

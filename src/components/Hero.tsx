@@ -1,6 +1,12 @@
 import { useLayoutEffect, useRef } from 'react'
 import { site } from '../content/site'
-import { FINE_POINTER, MOTION_OK, SplitText, gsap } from '../lib/motion'
+import {
+  FINE_POINTER,
+  MOTION_OK,
+  ScrollTrigger,
+  SplitText,
+  gsap,
+} from '../lib/motion'
 import { scrollToHash } from '../lib/scroll'
 import Terrain, { TERRAIN_LEVEL_GAP } from './Terrain'
 import './Hero.css'
@@ -116,7 +122,17 @@ export default function Hero() {
         ry(x * 10)
         rx(-y * 8)
       }
-      window.addEventListener('pointermove', onMove)
+      // Only listen while the hero is on screen; a page-lifetime pointermove
+      // listener would keep tweening the invisible terrain from every section.
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top bottom',
+        end: 'bottom top',
+        onToggle: (self) => {
+          if (self.isActive) window.addEventListener('pointermove', onMove)
+          else window.removeEventListener('pointermove', onMove)
+        },
+      })
       return () => window.removeEventListener('pointermove', onMove)
     })
 

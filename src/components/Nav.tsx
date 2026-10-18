@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { site } from '../content/site'
 import { ScrollTrigger } from '../lib/motion'
-import { scrollToHash } from '../lib/scroll'
+import { scrollToHash, setScrollLock } from '../lib/scroll'
 import { getTheme, setTheme, type Theme } from '../lib/theme'
 import './Nav.css'
 
@@ -39,7 +39,7 @@ export default function Nav() {
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    setScrollLock(open)
     if (!open) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
     window.addEventListener('keydown', onKey)
@@ -49,6 +49,9 @@ export default function Nav() {
   const go = (hash: string) => (e: React.MouseEvent) => {
     e.preventDefault()
     setOpen(false)
+    // Unlock before scrolling: the effect runs only after this handler, and
+    // lenis.start() there would cancel a scroll started while Lenis was stopped
+    setScrollLock(false)
     scrollToHash(hash)
   }
 
