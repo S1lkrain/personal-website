@@ -385,13 +385,15 @@
 
 ## 11. 技术方案
 
-- **推荐**：React + TypeScript + Tailwind CSS（Vite 构建），部署在 Vercel
-  - 和 Key Club 网站是同一套技术，仓库本身就能证明这些技能
-  - Tailwind 方便实现第 10 节的各种视觉方案
-- **备选**：纯 HTML/CSS/JS（现在的骨架）
-  - 更简单，不需要构建
-  - 能展示的技术能力更少
-- *最终方案待定，见第 15 节*
+- **已定**：React + TypeScript（Vite 构建），部署在 Vercel
+  - **不用 Tailwind**：用普通 CSS + 设计变量（design tokens），每个组件一个 CSS 文件
+  - 动画：GSAP（ScrollTrigger、SplitText）+ Lenis 平滑滚动
+  - 字体：Fraunces（标题、数字）、Inter（正文）、JetBrains Mono（标签），本地打包
+- 视觉方向：简约 + 参考 National Geographic 的立体动画
+  - Hero：可旋转的 3D 等高线地形，随鼠标倾斜、随滚动「飞越」
+  - 章节式大编号、逐词浮现的标题、阅读时逐词点亮的 About
+  - 项目卡片 3D 翻起并层叠下沉，鼠标悬停有倾斜和光泽
+  - 配色 7:2:1（主色 70%、辅色 20%、强调色 10%），5 套可选：Field Yellow / Forest / Ocean / Canyon / Glacier
 
 ## 12. 依赖与需要提供的信息
 
@@ -431,10 +433,11 @@
 
 ## 15. 待决问题
 
-- 技术方案：React + TS + Tailwind（推荐），还是纯 HTML/CSS/JS？
-- 第 2 个选做模块用 Block D 吗？
+- ~~技术方案~~ → React + TS，不用 Tailwind
+- ~~第 2 个选做模块~~ → Block D
+- **配色选哪一套？**（开发预览右下角的 Palette 面板）
 - 视觉方案选哪个？（A–F，或混搭）
 - Hero 布局和项目卡片样式选哪种？
-- 哪个邮箱可以公开？
-- 用自定义域名（比如 benjaminzhang.dev），还是默认的 Vercel 网址？
-- 要不要放个人照片？
+- ~~公开邮箱~~ → 两个都放
+- ~~域名~~ → Vercel 默认网址
+- ~~个人照片~~ → 暂时不放

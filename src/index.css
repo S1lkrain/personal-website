@@ -1,2 +1,17 @@
-@import 'tailwindcss';
 @import './styles/tokens.css';
+@import './styles/base.css';
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 3px;
+  background: var(--c-accent);
+  transform-origin: left;
+  transform: scaleX(0);
+}

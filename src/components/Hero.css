@@ -1,0 +1,174 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: calc(var(--nav-h) + var(--s-6)) var(--s-12);
+  /* hidden (not clip): 3D-transformed terrain layers must not widen the page */
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-kicker {
+  margin-bottom: var(--s-3);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero);
+  font-weight: 600;
+  font-variation-settings:
+    'opsz' 144,
+    'SOFT' 30;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+.hero-name-line {
+  display: block;
+  position: relative;
+  width: fit-content;
+}
+
+/* The accent frame underlines the surname */
+.hero-frame {
+  position: absolute;
+  left: 0.04em;
+  right: -0.08em;
+  bottom: 0.02em;
+  height: 0.09em;
+  background: var(--c-accent);
+  transform-origin: left center;
+  z-index: -1;
+}
+
+.hero-subtitle {
+  margin-top: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  letter-spacing: 0.02em;
+}
+
+.hero-bio {
+  margin-top: var(--s-3);
+  max-width: 34rem;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--c-muted);
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: var(--s-6);
+}
+
+.hero-scroll {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--s-4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+}
+.hero-scroll-line {
+  position: relative;
+  width: 1px;
+  height: 40px;
+  background: var(--c-line);
+  overflow: hidden;
+}
+.hero-scroll-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--c-fg);
+  animation: scroll-cue 2.2s var(--ease-out) infinite;
+}
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* ---------- Terrain ---------- */
+
+.terrain {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -12vw;
+  width: min(1050px, 92vw);
+  aspect-ratio: 1;
+  translate: 0 -50%;
+  perspective: 1500px;
+  perspective-origin: 50% 30%;
+  pointer-events: none;
+  /* Fade the map out behind the text column */
+  mask-image: linear-gradient(to right, transparent 4%, #000 42%);
+}
+
+.terrain-mouse,
+.terrain-tilt,
+.terrain-spin {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.terrain-tilt {
+  transform: rotateX(58deg);
+}
+
+.terrain-grid {
+  position: absolute;
+  inset: 4%;
+  border-radius: 50%;
+  background-image:
+    linear-gradient(var(--c-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(circle at center, #000 30%, transparent 70%);
+  opacity: 0.7;
+}
+
+.terrain-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.terrain-layer path {
+  fill: none;
+  stroke: var(--c-fg);
+  stroke-width: 1.4;
+  stroke-opacity: 0.38;
+  stroke-dasharray: 1;
+  vector-effect: non-scaling-stroke;
+}
+.terrain-layer.is-peak path {
+  stroke: var(--c-accent);
+  stroke-width: 2.4;
+  stroke-opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .terrain {
+    right: -40vw;
+    width: 140vw;
+    opacity: 0.55;
+    mask-image: linear-gradient(to bottom, #000 30%, transparent 75%);
+  }
+  .hero {
+    align-items: flex-end;
+  }
+}

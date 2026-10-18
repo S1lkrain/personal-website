@@ -3,7 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Benjamin Zhang</title>
+    <title>Benjamin Zhang — Student Developer</title>
+    <meta
+      name="description"
+      content="Benjamin Zhang is a high school student developer (Class of 2028) building games, AI tools, and websites."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Benjamin Zhang — Student Developer" />
+    <meta
+      property="og:description"
+      content="Projects, leadership, and tutoring from a high school student interested in computer science and AI."
+    />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#f6f4ef" />
+    <script>
+      // Apply the saved or system theme before first paint to avoid a flash.
+      ;(function () {
+        var root = document.documentElement
+        var theme, palette
+        try {
+          theme = localStorage.getItem('theme')
+          palette = localStorage.getItem('palette')
+        } catch (e) {}
+        if (!theme) {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+        }
+        root.dataset.theme = theme
+        root.dataset.palette = palette || 'yellow'
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

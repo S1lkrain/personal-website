@@ -1,1 +1,128 @@
-/* Design tokens. Filled in during Phase 5 once a visual direction is chosen. */
+/*
+ * Design tokens.
+ *
+ * Color follows a 7:2:1 ratio:
+ *   --c-dominant  (70%)  page background
+ *   --c-secondary (20%)  text, dark bands, card plates
+ *   --c-accent    (10%)  highlights only: frames, underlines, peaks, buttons
+ * Accent is never used for small text, so contrast stays safe on every palette.
+ *
+ * Each palette has a light and a dark variant; dark swaps dominant and secondary.
+ */
+
+:root {
+  /* Palette: Field Yellow (default) */
+  --c-dominant: #f6f4ef;
+  --c-secondary: #141414;
+  --c-accent: #ffc400;
+  --c-on-accent: #141414;
+
+  /* Type */
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-body: 'Inter Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --fs-hero: clamp(3.4rem, 11vw, 9.5rem);
+  --fs-h2: clamp(2.2rem, 5.5vw, 4.25rem);
+  --fs-h3: clamp(1.4rem, 2.4vw, 1.9rem);
+  --fs-lead: clamp(1.1rem, 1.6vw, 1.3rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+  --fs-label: 0.75rem;
+
+  /* Space (8px grid) */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-6: 48px;
+  --s-8: 64px;
+  --s-12: 96px;
+  --s-16: 128px;
+  --section-y: clamp(96px, 14vw, 176px);
+  --gutter: clamp(16px, 5vw, 64px);
+  --max-w: 1200px;
+
+  /* Shape */
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-pill: 999px;
+
+  --nav-h: 72px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Palettes ---------- */
+
+:root[data-palette='forest'] {
+  --c-dominant: #f1f0e8;
+  --c-secondary: #1c3a2e;
+  --c-accent: #e39b2d;
+  --c-on-accent: #1c3a2e;
+}
+:root[data-palette='ocean'] {
+  --c-dominant: #f3f6f8;
+  --c-secondary: #0b2545;
+  --c-accent: #ff6b4a;
+  --c-on-accent: #0b2545;
+}
+:root[data-palette='canyon'] {
+  --c-dominant: #f4eee6;
+  --c-secondary: #2a1f18;
+  --c-accent: #c9552b;
+  --c-on-accent: #fff8f0;
+}
+:root[data-palette='glacier'] {
+  --c-dominant: #eef3f3;
+  --c-secondary: #15313a;
+  --c-accent: #2bb3a3;
+  --c-on-accent: #0b1a1e;
+}
+
+/* Dark variants */
+:root[data-theme='dark'] {
+  --c-dominant: #0f0f0f;
+  --c-secondary: #f2efe8;
+}
+:root[data-theme='dark'][data-palette='forest'] {
+  --c-dominant: #0e1a15;
+  --c-secondary: #e9e7dc;
+  --c-accent: #f2a93b;
+  --c-on-accent: #0e1a15;
+}
+:root[data-theme='dark'][data-palette='ocean'] {
+  --c-dominant: #081a30;
+  --c-secondary: #e8eef4;
+  --c-accent: #ff7a5c;
+  --c-on-accent: #081a30;
+}
+:root[data-theme='dark'][data-palette='canyon'] {
+  --c-dominant: #17110d;
+  --c-secondary: #f1e8dc;
+  --c-accent: #e0703f;
+  --c-on-accent: #17110d;
+}
+:root[data-theme='dark'][data-palette='glacier'] {
+  --c-dominant: #0b1a1e;
+  --c-secondary: #e3eeee;
+  --c-accent: #3ccfbc;
+  --c-on-accent: #0b1a1e;
+}
+
+/* Derived colors — mixed from the three base colors so every palette stays in ratio */
+:root {
+  --c-bg: var(--c-dominant);
+  --c-fg: var(--c-secondary);
+  --c-muted: color-mix(in oklab, var(--c-secondary) 62%, var(--c-dominant));
+  --c-faint: color-mix(in oklab, var(--c-secondary) 22%, var(--c-dominant));
+  --c-line: color-mix(in oklab, var(--c-secondary) 14%, var(--c-dominant));
+  --c-surface: color-mix(in oklab, var(--c-secondary) 4%, var(--c-dominant));
+  --c-band-bg: var(--c-secondary);
+  --c-band-fg: var(--c-dominant);
+  --c-band-muted: color-mix(
+    in oklab,
+    var(--c-dominant) 62%,
+    var(--c-secondary)
+  );
+}

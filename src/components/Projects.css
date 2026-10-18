@@ -1,0 +1,257 @@
+.pstack {
+  display: grid;
+  gap: clamp(48px, 10vh, 120px);
+  padding-bottom: 6vh;
+}
+
+/* Sticky wrappers stack the cards; each sits a little lower than the last */
+.pcard-wrap {
+  position: sticky;
+  top: calc(var(--nav-h) + 20px + var(--i) * 18px);
+  perspective: 1600px;
+}
+
+.pcard {
+  position: relative;
+  border-radius: var(--r-lg);
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  box-shadow:
+    0 1px 0 color-mix(in oklab, var(--c-fg) 4%, transparent),
+    0 30px 60px -30px color-mix(in oklab, var(--c-fg) 28%, transparent);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.pcard-tilt {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  min-height: min(520px, 72vh);
+  border-radius: inherit;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.pcard-text {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 4vw, 56px);
+}
+
+.pcard-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: var(--s-4);
+}
+.pcard-index {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+.pcard-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pcard-status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-muted);
+}
+.status-live::before {
+  background: var(--c-accent);
+  box-shadow: 0 0 0 0 var(--c-accent);
+  animation: pulse 2.4s infinite;
+}
+.status-in-progress::before {
+  background: transparent;
+  border: 1.5px solid var(--c-fg);
+}
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+.pcard-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 96;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.pcard-subtitle {
+  margin-top: 8px;
+  color: var(--c-muted);
+  font-size: 0.95rem;
+}
+
+.pcard-desc {
+  margin-top: var(--s-3);
+  max-width: 34rem;
+  color: var(--c-muted);
+}
+.pcard-desc p + p {
+  margin-top: 0.7em;
+}
+.pcard-desc strong {
+  color: var(--c-fg);
+  font-weight: 600;
+}
+
+.pcard-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: var(--s-4);
+}
+.pcard-tags li {
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.pcard-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: var(--s-3);
+  font-weight: 600;
+}
+
+/* Illustration plate in the secondary color */
+.pcard-plate {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 12px;
+  border-radius: calc(var(--r-lg) - 8px);
+  background: var(--c-band-bg);
+  overflow: hidden;
+}
+.pcard-plate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--c-band-fg) 16%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 18px 18px;
+}
+
+.motif {
+  position: relative;
+  width: min(72%, 300px);
+  overflow: visible;
+}
+.motif .m-cell {
+  fill: none;
+  stroke: color-mix(in oklab, var(--c-band-fg) 22%, transparent);
+}
+.motif .m-fill {
+  fill: var(--c-band-fg);
+}
+.motif .m-node {
+  fill: var(--c-band-bg);
+  stroke: var(--c-band-fg);
+  stroke-width: 2;
+}
+.motif .m-line {
+  fill: none;
+  stroke: var(--c-band-fg);
+  stroke-width: 2;
+  stroke-opacity: 0.6;
+}
+.motif .m-draw {
+  stroke-dasharray: 1;
+}
+.motif .m-dash {
+  stroke-dasharray: 6 8;
+}
+.motif .m-accent,
+.motif .m-accent-stroke {
+  fill: none;
+  stroke: var(--c-accent);
+  stroke-width: 4;
+  stroke-opacity: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.motif .m-accent-fill {
+  fill: var(--c-accent);
+}
+.motif .m-x,
+.motif .m-check {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.motif .m-x {
+  stroke: var(--c-band-fg);
+  opacity: 0.6;
+}
+.motif .m-check {
+  stroke: var(--c-on-accent);
+}
+
+/* Glare that follows the pointer */
+.pcard-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--gx, 50%) var(--gy, 0%),
+    color-mix(in oklab, var(--c-accent) 14%, transparent),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.pcard-tilt:hover .pcard-glare {
+  opacity: 1;
+}
+
+/* Darkens a card as the next one slides over it */
+.pcard-shade {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 860px) {
+  .pcard-tilt {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .pcard-plate {
+    order: -1;
+    height: 180px;
+    margin-bottom: 0;
+  }
+  .motif {
+    width: 150px;
+  }
+  .pcard-wrap {
+    top: calc(var(--nav-h) + 8px + var(--i) * 10px);
+  }
+}

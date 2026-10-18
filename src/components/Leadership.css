@@ -1,0 +1,98 @@
+.timeline {
+  position: relative;
+  padding-left: clamp(36px, 6vw, 72px);
+}
+.tl-list {
+  display: grid;
+  gap: clamp(40px, 7vw, 80px);
+}
+
+.tl-track {
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--c-line);
+}
+.tl-progress {
+  position: absolute;
+  inset: 0;
+  background: var(--c-accent);
+  transform-origin: top;
+}
+
+.tl-item {
+  position: relative;
+}
+
+.tl-dot {
+  position: absolute;
+  left: calc(-1 * clamp(36px, 6vw, 72px));
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  border: 3px solid var(--c-fg);
+}
+
+.tl-card {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) 1.4fr;
+  gap: var(--s-3) clamp(24px, 5vw, 72px);
+  padding-bottom: clamp(32px, 5vw, 56px);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.tl-org {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.tl-role {
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.tl-points {
+  display: grid;
+  gap: var(--s-2);
+  font-size: 1.1rem;
+  color: var(--c-muted);
+}
+.tl-points li {
+  position: relative;
+  padding-left: 28px;
+}
+.tl-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 14px;
+  height: 2px;
+  background: var(--c-accent);
+}
+.tl-points strong {
+  color: var(--c-fg);
+  font-weight: 650;
+}
+
+.tl-link {
+  grid-column: 2;
+  justify-self: start;
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .tl-card {
+    grid-template-columns: 1fr;
+  }
+  .tl-link {
+    grid-column: 1;
+  }
+}

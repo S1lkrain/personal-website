@@ -1,0 +1,64 @@
+.section-header {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
+  gap: 0 clamp(16px, 4vw, 56px);
+  padding-bottom: var(--s-4);
+  margin-bottom: clamp(48px, 7vw, 96px);
+  perspective: 900px;
+}
+
+.sh-number {
+  font-family: var(--font-display);
+  font-size: clamp(5.5rem, 17vw, 14rem);
+  font-weight: 700;
+  font-variation-settings: 'opsz' 144;
+  line-height: 0.78;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--c-fg);
+  transform-origin: 50% 100%;
+}
+
+.sh-label {
+  margin-bottom: var(--s-2);
+}
+
+.sh-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  font-variation-settings: 'opsz' 96;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.sh-rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--c-line);
+  transform-origin: left;
+}
+.sh-rule::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 72px;
+  height: 3px;
+  background: var(--c-accent);
+}
+
+.tone-band .sh-number {
+  -webkit-text-stroke-color: var(--c-band-fg);
+}
+.tone-band .sh-label {
+  color: var(--c-band-muted);
+}
+.tone-band .sh-rule {
+  background: color-mix(in oklab, var(--c-band-fg) 18%, var(--c-band-bg));
+}

@@ -1,0 +1,74 @@
+.stats {
+  position: relative;
+  padding-block: clamp(80px, 11vw, 140px);
+  background: var(--c-band-bg);
+  color: var(--c-band-fg);
+  overflow: hidden;
+}
+
+/* Faint contour texture in the band */
+.stats::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: repeating-radial-gradient(
+    ellipse at 80% 40%,
+    transparent 0 38px,
+    color-mix(in oklab, var(--c-band-fg) 7%, transparent) 38px 39px
+  );
+  pointer-events: none;
+}
+
+.stats .container {
+  position: relative;
+}
+
+.stats-label {
+  color: var(--c-band-muted);
+  margin-bottom: var(--s-6);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-4);
+}
+
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 7.5vw, 6.5rem);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 144;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.stat-affix {
+  font-size: 0.55em;
+  color: var(--c-band-muted);
+  margin-right: 0.05em;
+}
+
+.stat-bar {
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin: var(--s-3) 0 var(--s-2);
+  background: var(--c-accent);
+  transform-origin: left;
+}
+
+.stat-label {
+  max-width: 16rem;
+  font-size: 0.98rem;
+  color: var(--c-band-muted);
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: var(--s-8);
+  }
+}
