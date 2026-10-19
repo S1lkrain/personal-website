@@ -100,10 +100,30 @@
   }
 }
 
-/* Night-sky twinkle above the terrain */
-.hero-stars {
-  inset: 0 0 42% 0;
+/* An occasional shooting star across the sky (driven from Hero.tsx) */
+.meteor {
+  position: absolute;
   z-index: 1;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--c-accent), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+.meteor::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: 0 0 10px 2px color-mix(in oklab, var(--c-accent) 80%, transparent);
 }
 
 /* ---------- Terrain ---------- */
@@ -165,6 +185,42 @@
   stroke: var(--c-accent);
   stroke-width: 2.4;
   stroke-opacity: 1;
+}
+
+/* A breathing star marking the summit */
+.terrain-peak-star {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: var(--c-accent);
+  filter: drop-shadow(
+    0 0 9px color-mix(in oklab, var(--c-accent) 75%, transparent)
+  );
+  animation: star-in 1.2s var(--ease-out) 2.4s backwards;
+}
+.terrain-peak-star path {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(3.2);
+  animation: peak-pulse 3.4s ease-in-out 3.4s infinite;
+}
+@keyframes star-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes peak-pulse {
+  0%,
+  100% {
+    transform: scale(2.9) rotate(0deg);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(3.8) rotate(12deg);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 900px) {

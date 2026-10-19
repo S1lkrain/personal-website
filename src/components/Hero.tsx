@@ -8,7 +8,6 @@ import {
   gsap,
 } from '../lib/motion'
 import { scrollToHash } from '../lib/scroll'
-import Stars from './Stars'
 import Terrain, { TERRAIN_LEVEL_GAP } from './Terrain'
 import './Hero.css'
 
@@ -105,9 +104,44 @@ export default function Hero() {
         .to(terrain.current, { opacity: 0.15, ease: 'none' }, 0)
         .to(q('.hero-content'), { yPercent: -18, opacity: 0, ease: 'none' }, 0)
 
+      // ---- Meteors: an occasional shooting star across the sky ----
+      const meteor = q('.meteor')[0]
+      let meteorStopped = false
+      let meteorTween: gsap.core.Timeline | gsap.core.Tween | null = null
+      const launch = () => {
+        if (meteorStopped) return
+        const angle = gsap.utils.random(18, 34)
+        const rad = (angle * Math.PI) / 180
+        const dist = gsap.utils.random(280, 460)
+        gsap.set(meteor, {
+          top: `${gsap.utils.random(6, 36)}%`,
+          left: `${gsap.utils.random(35, 88)}%`,
+          rotation: -angle,
+          x: 0,
+          y: 0,
+        })
+        meteorTween = gsap
+          .timeline({ onComplete: schedule })
+          .to(
+            meteor,
+            {
+              x: -Math.cos(rad) * dist,
+              y: Math.sin(rad) * dist,
+              duration: 1,
+              ease: 'power2.out',
+            },
+            0,
+          )
+          .fromTo(meteor, { opacity: 0 }, { opacity: 1, duration: 0.12 }, 0)
+          .to(meteor, { opacity: 0, duration: 0.45 }, 0.5)
+      }
+      const schedule = () => {
+        if (meteorStopped) return
+        meteorTween = gsap.delayedCall(gsap.utils.random(7, 15), launch)
+      }
+      meteorTween = gsap.delayedCall(gsap.utils.random(2.5, 5), launch)
+
       // ---- Pointer: tilt the map toward the cursor (desktop only) ----
-      const pointer = window.matchMedia(FINE_POINTER).matches
-      if (!pointer) return
       const mouse = q('.terrain-mouse')[0]
       const rx = gsap.quickTo(mouse, 'rotationX', {
         duration: 1.2,
@@ -123,18 +157,25 @@ export default function Hero() {
         ry(x * 10)
         rx(-y * 8)
       }
-      // Only listen while the hero is on screen; a page-lifetime pointermove
-      // listener would keep tweening the invisible terrain from every section.
-      ScrollTrigger.create({
-        trigger: el,
-        start: 'top bottom',
-        end: 'bottom top',
-        onToggle: (self) => {
-          if (self.isActive) window.addEventListener('pointermove', onMove)
-          else window.removeEventListener('pointermove', onMove)
-        },
-      })
-      return () => window.removeEventListener('pointermove', onMove)
+      if (window.matchMedia(FINE_POINTER).matches) {
+        // Only listen while the hero is on screen; a page-lifetime pointermove
+        // listener would keep tweening the invisible terrain from every section.
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top bottom',
+          end: 'bottom top',
+          onToggle: (self) => {
+            if (self.isActive) window.addEventListener('pointermove', onMove)
+            else window.removeEventListener('pointermove', onMove)
+          },
+        })
+      }
+      return () => {
+        // Tweens spawned from launch/schedule outlive the context; stop them here
+        meteorStopped = true
+        meteorTween?.kill()
+        window.removeEventListener('pointermove', onMove)
+      }
     })
 
     return () => mm.revert()
@@ -143,7 +184,7 @@ export default function Hero() {
   return (
     <header className="hero" id="top" ref={root}>
       <Terrain ref={terrain} />
-      <Stars seed={5} count={12} sizeRange={[7, 14]} className="hero-stars" />
+      <span className="meteor" aria-hidden="true" />
 
       <div className="container hero-content">
         <p className="label hero-kicker">{site.kicker}</p>

@@ -77,6 +77,12 @@ function buildHill(
 
 export const TERRAIN_LEVEL_GAP = 22
 
+// Summit of the main hill: its top ring's drifted center, one step above it
+const PEAK = { x: 470 + 4 * 14, y: 520 + -5 * 14, z: 15 * TERRAIN_LEVEL_GAP }
+
+const STAR_PATH =
+  'M0 -7 C0.6 -2 2 -0.6 7 0 C2 0.6 0.6 2 0 7 C-0.6 2 -2 0.6 -7 0 C-2 -0.6 -0.6 -2 0 -7 Z'
+
 const Terrain = forwardRef<HTMLDivElement>(function Terrain(_, ref) {
   const contours = useMemo(
     () => [
@@ -105,6 +111,15 @@ const Terrain = forwardRef<HTMLDivElement>(function Terrain(_, ref) {
                 <path d={c.d} pathLength={1} />
               </svg>
             ))}
+            <svg
+              className="terrain-peak-star"
+              viewBox={`0 0 ${SIZE} ${SIZE}`}
+              style={{ transform: `translateZ(${PEAK.z}px)` }}
+            >
+              <g transform={`translate(${PEAK.x} ${PEAK.y})`}>
+                <path d={STAR_PATH} />
+              </g>
+            </svg>
           </div>
         </div>
       </div>

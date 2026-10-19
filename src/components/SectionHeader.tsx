@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
 import { MOTION_OK, SplitText, gsap } from '../lib/motion'
-import { STAR_PATH } from './Stars'
 import './SectionHeader.css'
 
 type Props = {
@@ -67,9 +66,6 @@ export default function SectionHeader({ number, label, title, id }: Props) {
     <div className="section-header" ref={root}>
       <span className="sh-number" aria-hidden="true">
         {number}
-        <svg className="star sh-spark" viewBox="-8 -8 16 16">
-          <path d={STAR_PATH} />
-        </svg>
       </span>
       <div className="sh-text">
         <p className="label sh-label">
