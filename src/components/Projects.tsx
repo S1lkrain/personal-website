@@ -32,7 +32,7 @@ export default function Projects() {
               trigger: wrap,
               start: 'top bottom',
               end: 'top 45%',
-              scrub: 0.8,
+              scrub: 1,
             },
           },
         )
@@ -76,7 +76,7 @@ export default function Projects() {
             trigger: next,
             start: 'top bottom',
             end: 'top 20%',
-            scrub: true,
+            scrub: 0.8,
           },
         })
         gsap.to(card.querySelector('.pcard-shade'), {
@@ -86,7 +86,7 @@ export default function Projects() {
             trigger: next,
             start: 'top bottom',
             end: 'top 20%',
-            scrub: true,
+            scrub: 0.8,
           },
         })
       })
@@ -94,24 +94,28 @@ export default function Projects() {
       // Pointer tilt with a moving glare (desktop only)
       if (!window.matchMedia(FINE_POINTER).matches) return
       const cleanups = q<HTMLElement>('.pcard-tilt').map((tilt) => {
-        // The tilt brings its own perspective; the card is not a 3D context
-        gsap.set(tilt, { transformPerspective: 1000 })
+        // Depth comes from .pcard's flat `perspective`; the card is not a
+        // preserve-3d context, so nothing can render behind its background
+        gsap.set(tilt, { '--gx': '50%', '--gy': '0%' })
         const rx = gsap.quickTo(tilt, 'rotationX', {
-          duration: 0.6,
+          duration: 0.9,
           ease: 'power3',
         })
         const ry = gsap.quickTo(tilt, 'rotationY', {
-          duration: 0.6,
+          duration: 0.9,
           ease: 'power3',
         })
+        // The glare trails the pointer with the same easing as the tilt
+        const gx = gsap.quickTo(tilt, '--gx', { duration: 0.9, ease: 'power3' })
+        const gy = gsap.quickTo(tilt, '--gy', { duration: 0.9, ease: 'power3' })
         const move = (e: PointerEvent) => {
           const r = tilt.getBoundingClientRect()
           const x = (e.clientX - r.left) / r.width
           const y = (e.clientY - r.top) / r.height
           ry((x - 0.5) * 8)
           rx((0.5 - y) * 6)
-          tilt.style.setProperty('--gx', `${x * 100}%`)
-          tilt.style.setProperty('--gy', `${y * 100}%`)
+          gx(x * 100)
+          gy(y * 100)
         }
         const leave = () => {
           rx(0)

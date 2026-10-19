@@ -22,6 +22,9 @@
   box-shadow:
     0 1px 0 color-mix(in oklab, var(--c-fg) 4%, transparent),
     0 30px 60px -30px color-mix(in oklab, var(--c-fg) 28%, transparent);
+  /* Depth for the hover tilt; stays flat (no preserve-3d), so children
+     cannot sort behind the card's background */
+  perspective: 1000px;
   will-change: transform;
 }
 
