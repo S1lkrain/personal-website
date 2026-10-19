@@ -100,6 +100,12 @@
   }
 }
 
+/* Night-sky twinkle above the terrain */
+.hero-stars {
+  inset: 0 0 42% 0;
+  z-index: 1;
+}
+
 /* ---------- Terrain ---------- */
 
 .terrain {

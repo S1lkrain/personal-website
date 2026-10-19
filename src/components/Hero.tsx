@@ -8,6 +8,7 @@ import {
   gsap,
 } from '../lib/motion'
 import { scrollToHash } from '../lib/scroll'
+import Stars from './Stars'
 import Terrain, { TERRAIN_LEVEL_GAP } from './Terrain'
 import './Hero.css'
 
@@ -142,6 +143,7 @@ export default function Hero() {
   return (
     <header className="hero" id="top" ref={root}>
       <Terrain ref={terrain} />
+      <Stars seed={5} count={12} sizeRange={[7, 14]} className="hero-stars" />
 
       <div className="container hero-content">
         <p className="label hero-kicker">{site.kicker}</p>

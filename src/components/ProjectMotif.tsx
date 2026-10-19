@@ -1,44 +1,5 @@
 import type { Project } from '../content/site'
 
-/** A sprinkle of twinkling four-point stars over a card's illustration plate. */
-export function PlateStars({ seed }: { seed: number }) {
-  // Deterministic pseudo-random, so layouts are stable across renders
-  const rnd = (n: number) => {
-    const x = Math.sin(seed * 39.17 + n * 17.23) * 43758.5453
-    return x - Math.floor(x)
-  }
-  const stars = Array.from({ length: 8 }, (_, i) => ({
-    // Edge columns only, keeping the center clear for the motif
-    left: i % 2 === 0 ? 5 + rnd(i) * 24 : 70 + rnd(i) * 25,
-    top: 5 + rnd(i + 10) * 88,
-    size: 9 + rnd(i + 20) * 10,
-    delay: rnd(i + 30) * 4,
-    dur: 2.8 + rnd(i + 40) * 2.4,
-  }))
-  return (
-    <>
-      {stars.map((s, i) => (
-        <svg
-          key={i}
-          className="plate-star"
-          viewBox="-8 -8 16 16"
-          style={
-            {
-              left: `${s.left}%`,
-              top: `${s.top}%`,
-              width: s.size,
-              '--tw-delay': `${s.delay}s`,
-              '--tw-dur': `${s.dur}s`,
-            } as React.CSSProperties
-          }
-        >
-          <path d="M0 -7 C0.6 -2 2 -0.6 7 0 C2 0.6 0.6 2 0 7 C-0.6 2 -2 0.6 -7 0 C-2 -0.6 -0.6 -2 0 -7 Z" />
-        </svg>
-      ))}
-    </>
-  )
-}
-
 /*
  * Small generative illustrations, one per project, drawn in SVG so they
  * follow the active palette. Elements marked .m-anim are animated on scroll.

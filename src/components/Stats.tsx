@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { site } from '../content/site'
 import { MOTION_OK, gsap } from '../lib/motion'
+import Stars from './Stars'
 import './Stats.css'
 
 /** A full-bleed dark band of big numbers that count up as they arrive. */
@@ -65,6 +66,7 @@ export default function Stats() {
 
   return (
     <section className="stats" aria-label="By the numbers" ref={root}>
+      <Stars seed={13} count={10} sizeRange={[7, 14]} />
       <div className="container">
         <p className="label stats-label">By the numbers</p>
         <ul className="stats-grid">

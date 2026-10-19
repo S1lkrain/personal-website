@@ -10,6 +10,7 @@
 }
 
 .sh-number {
+  position: relative;
   font-family: var(--font-display);
   font-size: clamp(5.5rem, 17vw, 14rem);
   font-weight: 700;
@@ -19,6 +20,15 @@
   color: transparent;
   -webkit-text-stroke: 1.5px var(--c-fg);
   transform-origin: 50% 100%;
+}
+
+/* A slow glint beside each chapter number */
+.sh-spark {
+  top: -0.02em;
+  right: -0.22em;
+  width: clamp(14px, 1.8vw, 22px);
+  --tw-dur: 5.2s;
+  --tw-delay: 1.2s;
 }
 
 .sh-label {
