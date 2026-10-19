@@ -4,11 +4,14 @@
   padding-bottom: 6vh;
 }
 
-/* Sticky wrappers stack the cards; each sits a little lower than the last */
+/* Sticky wrappers stack the cards; each sits a little lower than the last.
+   No preserve-3d / ancestor perspective anywhere in a card: every rotation
+   carries its own transformPerspective. True 3D nesting would put the tilted
+   face half behind the card's background plane, which renders as the card
+   flashing dark while the pointer moves. */
 .pcard-wrap {
   position: sticky;
   top: calc(var(--nav-h) + 20px + var(--i) * 18px);
-  perspective: 1600px;
 }
 
 .pcard {
@@ -19,7 +22,6 @@
   box-shadow:
     0 1px 0 color-mix(in oklab, var(--c-fg) 4%, transparent),
     0 30px 60px -30px color-mix(in oklab, var(--c-fg) 28%, transparent);
-  transform-style: preserve-3d;
   will-change: transform;
 }
 
@@ -30,7 +32,6 @@
   min-height: min(520px, 72vh);
   border-radius: inherit;
   overflow: hidden;
-  transform-style: preserve-3d;
 }
 
 .pcard-text {

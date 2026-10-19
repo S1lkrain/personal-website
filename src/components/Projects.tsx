@@ -94,6 +94,8 @@ export default function Projects() {
       // Pointer tilt with a moving glare (desktop only)
       if (!window.matchMedia(FINE_POINTER).matches) return
       const cleanups = q<HTMLElement>('.pcard-tilt').map((tilt) => {
+        // The tilt brings its own perspective; the card is not a 3D context
+        gsap.set(tilt, { transformPerspective: 1000 })
         const rx = gsap.quickTo(tilt, 'rotationX', {
           duration: 0.6,
           ease: 'power3',
