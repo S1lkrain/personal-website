@@ -34,6 +34,7 @@ export type Stat = {
 import apforgeShot from '../assets/apforge.png'
 import keyclubShot from '../assets/keyclub.webp'
 import magicfieldShot from '../assets/magicfield.webp'
+import projectMagicShot from '../assets/project-magic.webp'
 
 const github = 'https://github.com/S1lkrain'
 
@@ -149,6 +150,7 @@ export const site = {
       ],
       tags: ['Game Design', 'Prototyping', 'Debugging'],
       links: [],
+      screenshot: { src: projectMagicShot, position: 'left center' },
       motif: 'fracture',
     },
   ] satisfies Project[],
