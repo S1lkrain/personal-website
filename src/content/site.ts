@@ -11,6 +11,8 @@ export type Project = {
   description: [string, string]
   tags: [string, string, string]
   links: LinkItem[]
+  /** Shown on the card's plate; the motif is the fallback when absent */
+  screenshot?: { src: string; position?: string }
   motif: 'board' | 'pipeline' | 'rings' | 'fracture'
 }
 
@@ -28,6 +30,10 @@ export type Stat = {
   suffix?: string
   label: string
 }
+
+import apforgeShot from '../assets/apforge.png'
+import keyclubShot from '../assets/keyclub.webp'
+import magicfieldShot from '../assets/magicfield.webp'
 
 const github = 'https://github.com/S1lkrain'
 
@@ -98,6 +104,7 @@ export const site = {
         },
         { label: 'Read the Wiki', href: 'https://magicfield.vercel.app/' },
       ],
+      screenshot: { src: magicfieldShot },
       motif: 'board',
     },
     {
@@ -111,6 +118,7 @@ export const site = {
       ],
       tags: ['Python', 'LLM Evaluation', 'React'],
       links: [{ label: 'View on GitHub', href: `${github}/APForge` }],
+      screenshot: { src: apforgeShot, position: 'top left' },
       motif: 'pipeline',
     },
     {
@@ -127,6 +135,7 @@ export const site = {
         { label: 'Visit Website', href: 'https://key-club-web.vercel.app/' },
         { label: 'Source', href: `${github}/KeyClubWeb` },
       ],
+      screenshot: { src: keyclubShot, position: 'left center' },
       motif: 'rings',
     },
     {

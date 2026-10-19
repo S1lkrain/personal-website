@@ -37,7 +37,16 @@ export default function Projects() {
           },
         )
 
-        // Its illustration draws itself in
+        // Its screenshot settles into place...
+        gsap.from(card.querySelectorAll('.pcard-shot'), {
+          scale: 1.12,
+          opacity: 0,
+          duration: 1.2,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: wrap, start: 'top 55%' },
+        })
+
+        // ...or its illustration draws itself in
         gsap.from(card.querySelectorAll('.m-anim'), {
           opacity: 0,
           scale: 0.4,
@@ -209,7 +218,17 @@ export default function Projects() {
                   </div>
 
                   <div className="pcard-plate" aria-hidden="true">
-                    <ProjectMotif motif={p.motif} />
+                    {p.screenshot ? (
+                      <img
+                        className="pcard-shot"
+                        src={p.screenshot.src}
+                        alt=""
+                        loading="lazy"
+                        style={{ objectPosition: p.screenshot.position }}
+                      />
+                    ) : (
+                      <ProjectMotif motif={p.motif} />
+                    )}
                   </div>
                   <span className="pcard-glare" aria-hidden="true" />
                 </div>
