@@ -16,25 +16,7 @@
     />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#f6f4ef" />
-    <script>
-      // Apply the saved or system theme before first paint to avoid a flash.
-      ;(function () {
-        var root = document.documentElement
-        var theme, palette
-        try {
-          theme = localStorage.getItem('theme')
-          palette = localStorage.getItem('palette')
-        } catch (e) {}
-        if (!theme) {
-          theme = matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light'
-        }
-        root.dataset.theme = theme
-        root.dataset.palette = palette || 'yellow'
-      })()
-    </script>
+    <meta name="theme-color" content="#0f0f0f" />
   </head>
   <body>
     <div id="root"></div>

@@ -4,7 +4,6 @@ import Contact, { Footer } from './components/Contact'
 import Hero from './components/Hero'
 import Leadership from './components/Leadership'
 import Nav from './components/Nav'
-import PalettePicker from './components/PalettePicker'
 import Projects from './components/Projects'
 import ScrollProgress from './components/ScrollProgress'
 import Stats from './components/Stats'
@@ -35,7 +34,6 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-      {import.meta.env.DEV && <PalettePicker />}
     </>
   )
 }

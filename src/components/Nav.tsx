@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { site } from '../content/site'
 import { ScrollTrigger } from '../lib/motion'
 import { scrollToHash, setScrollLock } from '../lib/scroll'
-import { getTheme, setTheme, type Theme } from '../lib/theme'
 import './Nav.css'
 
 export default function Nav() {
@@ -10,7 +9,6 @@ export default function Nav() {
   const [hidden, setHidden] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const [theme, setThemeState] = useState<Theme>(getTheme)
 
   useEffect(() => {
     const triggers = site.nav.map(({ id }) =>
@@ -55,12 +53,6 @@ export default function Nav() {
     scrollToHash(hash)
   }
 
-  const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark'
-    setTheme(next)
-    setThemeState(next)
-  }
-
   return (
     <nav
       className={`nav${hidden && !open ? ' is-hidden' : ''}${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}
@@ -93,14 +85,6 @@ export default function Nav() {
         </ul>
 
         <div className="nav-actions">
-          <button
-            className="theme-toggle"
-            type="button"
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          >
-            <span className="theme-toggle-icon" data-theme={theme} />
-          </button>
           <button
             className="nav-menu"
             type="button"

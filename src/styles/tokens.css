@@ -3,17 +3,16 @@
  *
  * Color follows a 7:2:1 ratio:
  *   --c-dominant  (70%)  page background
- *   --c-secondary (20%)  text, dark bands, card plates
+ *   --c-secondary (20%)  text, light bands, card plates
  *   --c-accent    (10%)  highlights only: frames, underlines, peaks, buttons
- * Accent is never used for small text, so contrast stays safe on every palette.
+ * Accent is never used for small text, so contrast stays safe.
  *
- * Each palette has a light and a dark variant; dark swaps dominant and secondary.
+ * The site ships one fixed theme: Field Yellow, always dark.
  */
 
 :root {
-  /* Palette: Field Yellow (default) */
-  --c-dominant: #f6f4ef;
-  --c-secondary: #141414;
+  --c-dominant: #0f0f0f;
+  --c-secondary: #f2efe8;
   --c-accent: #ffc400;
   --c-on-accent: #141414;
 
@@ -53,64 +52,7 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ---------- Palettes ---------- */
-
-:root[data-palette='forest'] {
-  --c-dominant: #f1f0e8;
-  --c-secondary: #1c3a2e;
-  --c-accent: #e39b2d;
-  --c-on-accent: #1c3a2e;
-}
-:root[data-palette='ocean'] {
-  --c-dominant: #f3f6f8;
-  --c-secondary: #0b2545;
-  --c-accent: #ff6b4a;
-  --c-on-accent: #0b2545;
-}
-:root[data-palette='canyon'] {
-  --c-dominant: #f4eee6;
-  --c-secondary: #2a1f18;
-  --c-accent: #c9552b;
-  --c-on-accent: #fff8f0;
-}
-:root[data-palette='glacier'] {
-  --c-dominant: #eef3f3;
-  --c-secondary: #15313a;
-  --c-accent: #2bb3a3;
-  --c-on-accent: #0b1a1e;
-}
-
-/* Dark variants */
-:root[data-theme='dark'] {
-  --c-dominant: #0f0f0f;
-  --c-secondary: #f2efe8;
-}
-:root[data-theme='dark'][data-palette='forest'] {
-  --c-dominant: #0e1a15;
-  --c-secondary: #e9e7dc;
-  --c-accent: #f2a93b;
-  --c-on-accent: #0e1a15;
-}
-:root[data-theme='dark'][data-palette='ocean'] {
-  --c-dominant: #081a30;
-  --c-secondary: #e8eef4;
-  --c-accent: #ff7a5c;
-  --c-on-accent: #081a30;
-}
-:root[data-theme='dark'][data-palette='canyon'] {
-  --c-dominant: #17110d;
-  --c-secondary: #f1e8dc;
-  --c-accent: #e0703f;
-  --c-on-accent: #17110d;
-}
-:root[data-theme='dark'][data-palette='glacier'] {
-  --c-dominant: #0b1a1e;
-  --c-secondary: #e3eeee;
-  --c-accent: #3ccfbc;
-  --c-on-accent: #0b1a1e;
-}
-
-/* Derived colors — mixed from the three base colors so every palette stays in ratio */
+/* Derived colors — mixed from the three base colors so everything stays in ratio */
 :root {
   --c-bg: var(--c-dominant);
   --c-fg: var(--c-secondary);
