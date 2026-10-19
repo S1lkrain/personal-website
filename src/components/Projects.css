@@ -215,6 +215,31 @@
   stroke: var(--c-on-accent);
 }
 
+/* Twinkling stars scattered over the plate */
+.plate-star {
+  position: absolute;
+  aspect-ratio: 1;
+  height: auto;
+  fill: var(--c-accent);
+  filter: drop-shadow(
+    0 0 6px color-mix(in oklab, var(--c-accent) 70%, transparent)
+  );
+  opacity: 0;
+  animation: twinkle var(--tw-dur, 3.2s) ease-in-out var(--tw-delay, 0s)
+    infinite;
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(50deg);
+  }
+}
+
 /* Glare that follows the pointer */
 .pcard-glare {
   position: absolute;

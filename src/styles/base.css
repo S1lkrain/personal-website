@@ -189,5 +189,8 @@ button {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    /* Infinite animations (twinkle, pulse, scroll cue) would otherwise
+       strobe at 0.01ms per loop */
+    animation-iteration-count: 1 !important;
   }
 }

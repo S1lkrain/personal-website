@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { site } from '../content/site'
 import { FINE_POINTER, MOTION_OK, gsap } from '../lib/motion'
 import { Rich } from '../lib/rich'
-import ProjectMotif from './ProjectMotif'
+import ProjectMotif, { PlateStars } from './ProjectMotif'
 import SectionHeader from './SectionHeader'
 import './Projects.css'
 
@@ -210,6 +210,7 @@ export default function Projects() {
 
                   <div className="pcard-plate" aria-hidden="true">
                     <ProjectMotif motif={p.motif} />
+                    <PlateStars seed={i + 1} />
                   </div>
                   <span className="pcard-glare" aria-hidden="true" />
                 </div>
