@@ -11,6 +11,16 @@ export default function Projects() {
 
   useLayoutEffect(() => {
     const el = root.current!
+
+    // Decode screenshots up front: a decode during the arrival scrub drops a
+    // frame, and with lagSmoothing(0) (Lenis sync) the scrub then jumps
+    // straight to its end value instead of easing through it.
+    el.querySelectorAll<HTMLImageElement>('.pcard-shot').forEach((img) => {
+      const decode = () => img.decode().catch(() => {})
+      if (img.complete) decode()
+      else img.addEventListener('load', decode, { once: true })
+    })
+
     const mm = gsap.matchMedia()
 
     mm.add(MOTION_OK, () => {
@@ -37,13 +47,14 @@ export default function Projects() {
           },
         )
 
-        // Its screenshot settles into place...
+        // Its screenshot settles into place once the swing has finished —
+        // starting it mid-swing stacks the image's first paint onto the scrub
         gsap.from(card.querySelectorAll('.pcard-shot'), {
           scale: 1.12,
           opacity: 0,
           duration: 1.2,
           ease: 'power2.out',
-          scrollTrigger: { trigger: wrap, start: 'top 55%' },
+          scrollTrigger: { trigger: wrap, start: 'top 40%' },
         })
 
         // ...or its illustration draws itself in
@@ -54,7 +65,7 @@ export default function Projects() {
           duration: 0.9,
           stagger: 0.025,
           ease: 'back.out(2)',
-          scrollTrigger: { trigger: wrap, start: 'top 55%' },
+          scrollTrigger: { trigger: wrap, start: 'top 40%' },
         })
         gsap.fromTo(
           card.querySelectorAll('.m-draw'),
@@ -64,7 +75,7 @@ export default function Projects() {
             duration: 1.6,
             stagger: 0.15,
             ease: 'power2.inOut',
-            scrollTrigger: { trigger: wrap, start: 'top 55%' },
+            scrollTrigger: { trigger: wrap, start: 'top 40%' },
           },
         )
 
@@ -223,7 +234,7 @@ export default function Projects() {
                         className="pcard-shot"
                         src={p.screenshot.src}
                         alt=""
-                        loading="lazy"
+                        decoding="async"
                         style={{ objectPosition: p.screenshot.position }}
                       />
                     ) : (
